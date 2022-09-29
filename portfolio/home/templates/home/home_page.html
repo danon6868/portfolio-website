@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags widget_tweaks %}
+{% load static %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- Navigation bar -->
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <span class="d-block d-lg-none">Clarence Taylor</span>
+        {% image page.personal_photo height-400 as personal_photo %}
+        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                src="{{ personal_photo.url }}" alt="..." height="{{ personal_photo.height }}" />
+        </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% endblock content %}
+
+
+<h1>{{ page.name }}</h1>
+<hr>
+<p>{{ page.professional_title }}</p>
+<hr>
+
+<p>{{ page.about|richtext }}</p>
+
+<hr>
+{% image page.personal_photo max-320x200 %}
+{% image page.photo original class="masthead-avatar" %}
+
+<!-- Skills Section-->
+<section id="skills" class="page-section bg-primary text-white">
+    <h2 class="page-section-heading text-center text-uppercase">My skills</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+
+    <!-- Skills Icons-->
+    <div class="container">
+        <div class="row">
+            {% for skill in self.skills.all %}
+            <div class="col col-sm-2">
+                <i class="{{ skill.icon|lower }}">
+                    <span>{{ skill.name | upper }}</span>
+                </i>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
