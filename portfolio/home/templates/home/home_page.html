@@ -6,20 +6,19 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="../../static/css/home_page.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 {% endblock extra_css %}
 
 {% block content %}
-
 <!-- Navigation bar -->
-<!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Clarence Taylor</span>
-        {% image page.personal_photo height-400 as personal_photo %}
+        <span class="d-block d-lg-none"></span>
+        {% image self.personal_photo height-50 as personal_photo %}
         <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
                 src="{{ personal_photo.url }}" alt="..." height="{{ personal_photo.height }}" />
         </span>
@@ -40,22 +39,60 @@
     </div>
 </nav>
 
-{% endblock content %}
+<!-- Page Content-->
+<!-- About -->
+<section class="portfolio-section" id="about">
+    <div class="portfolio-section-content text-center text-uppercase text-secondary">
+        <h1 class="mb-0">
+            {{ self.first_name }}
+            <span class="text-primary">{{ self.second_name }}</span>
+        </h1>
+        <div class="subheading mb-5">
+            [TELEPHONE NUMBER MB]
+            <a href="mailto:name@email.com">MB_EMAIL@email.com</a>
+        </div>
+        <p class="lead mb-5">{{ self.about|richtext }}</p>
+    </div>
+</section>
+<hr class="m-0" />
 
+<!-- Experience -->
+<section class="portfolio-section" id="experience">
+    <div class="portfolio-section-content">
+        <h2 class="mb-5">Experience</h2>
+        {% for exp in self.experience.all|dictsortreversed:"start" %}
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">{{ exp.job_title }}</h3>
+                <div class="subheading mb-3">{{ exp.company }}, {{ exp.location }}</div>
+                <ul>
+                    {% if exp.achievement_1 is not None %}
+                    <li>{{exp.achievement_1}}</li>
+                    {% endif %}
+                    {% if exp.achievement_2 %}
+                    <li>{{exp.achievement_2}}</li>
+                    {% endif %}
+                    {% if exp.achievement_3 %}
+                    <li>{{exp.achievement_3}}</li>
+                    {% endif %}
+                    {% if exp.achievement_4 %}
+                    <li>{{exp.achievement_4}}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% if exp.end is None %}
+            <div class="flex-shrink-0"><span class="text-primary">{{ exp.start }} - Present</span></div>
+            {% else %}
+            <div class="flex-shrink-0"><span class="text-primary">{{ exp.start }} - {{ exp.end }}</span></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<hr class="m-0" />
 
-<h1>{{ page.name }}</h1>
-<hr>
-<p>{{ page.professional_title }}</p>
-<hr>
-
-<p>{{ page.about|richtext }}</p>
-
-<hr>
-{% image page.personal_photo max-320x200 %}
-{% image page.photo original class="masthead-avatar" %}
-
-<!-- Skills Section-->
-<section id="skills" class="page-section bg-primary text-white">
+<!-- Skills -->
+<section id="skills" class="page-section">
     <h2 class="page-section-heading text-center text-uppercase">My skills</h2>
     <!-- Icon Divider-->
     <div class="divider-custom divider-light">
@@ -77,3 +114,86 @@
         </div>
     </div>
 </section>
+<hr class="m-0" />
+
+<!-- Projects -->
+<section id="projects" class="page-section projects">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary">Projects</h2>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <div class="text-center mb-5 text-secondary">
+            These are some of my pet projects that have a visual component or CLI.
+        </div>
+
+        <!-- Portfolio Projects-->
+        <div class="row justify-content-center">
+            {% for project in self.projects.all %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="portfolio-project">
+                    <figure class="effect-hover">
+                        <a href="{{ project.source_url }}" target="_blank">
+                            {% image project.logo width-400 class="card-img-top project-logo" %}
+                            <div>Learn more</div>
+                        </a>
+                    </figure>
+                    <div class="card-body mt-1">
+                        <h5 class="card-title text-center">{{ project.title | title }} <a href={{project.source_url}}
+                                class="source_url" target="_blank"><i class="fa fa-github"></i></a></h5>
+                        <p class="project-finished-date text-center text-secondary">
+                            <i>{{ project.finished_date|date:'d F Y' }}</i>
+                        </p>
+                        <div class="card-text project-description mb-4">{{ project.description|richtext }}
+                        </div>
+                        <div class="project-technologies">
+                            {% for iter in project.used_technologies.all %}
+                            <span class="badge" style="background-color:{{ iter.used_technology.color }};">
+                                {{ iter.used_technology.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- Education-->
+<section class="portfolio-section" id="education">
+    <div class="portfolio-section-content">
+        <h2 class="mb-5">Education</h2>
+        {% for ed in self.education.all|dictsortreversed:"start" %}
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">{{ ed.program_name }}</h3>
+                <div class="subheading mb-3">{{ ed.educational_institution }}, {{ ed.degree }}</div>
+            </div>
+            {% if ed.end is None %}
+            <div class="flex-shrink-0"><span class="text-primary">{{ ed.start }} - Present</span></div>
+            {% else %}
+            <div class="flex-shrink-0"><span class="text-primary">{{ ed.start }} - {{ ed.end }}</span></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<hr class="m-0" />
+
+<!-- Publications -->
+<section class="portfolio-section" id="education">
+    <div class="portfolio-section-content">
+    </div>
+</section>
+<hr class="m-0" />
+
+{% endblock content %}
