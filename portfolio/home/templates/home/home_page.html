@@ -6,94 +6,169 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="../../static/css/home_page.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/font-awesome.min.css">
 {% endblock extra_css %}
 
 {% block content %}
-<!-- Navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none"></span>
-        {% image self.personal_photo height-50 as personal_photo %}
-        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
-                src="{{ personal_photo.url }}" alt="..." height="{{ personal_photo.height }}" />
-        </span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
-            class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li>
-        </ul>
+
+<!-- Navbar -->
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light text-uppercase fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#page-top">{{ self.first_name }}
+            <span class="text-primary">{{ self.second_name }}</span></a>
+        <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#experience">Experience</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Projects</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#education">Education</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#publications">Publications</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
-<!-- Page Content-->
-<!-- About -->
-<section class="portfolio-section" id="about">
-    <div class="portfolio-section-content text-center text-uppercase text-secondary">
-        <h1 class="mb-0">
-            {{ self.first_name }}
-            <span class="text-primary">{{ self.second_name }}</span>
-        </h1>
-        <div class="subheading mb-5">
-            [TELEPHONE NUMBER MB]
-            <a href="mailto:name@email.com">MB_EMAIL@email.com</a>
+<!-- Pagehead-->
+<header class="pagehead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <!-- Pagehead Avatar Image-->
+        {% image page.personal_photo original class="pagehead-avatar" %}
+        <!-- Pagehead Heading-->
+        <h1 class="pagehead-heading mt-5">{{ self.first_name | title }} {{ self.second_name | title }}</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
         </div>
-        <p class="lead mb-5">{{ self.about|richtext }}</p>
+        <p class="pagehead-subheading font-weight-light mb-0">{{ self.professional_title }}</p>
+    </div>
+</header>
+
+<!-- About -->
+<section id="about" class="page-section">
+    <div class="container">
+        <!-- About Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary">About</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-i"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Content-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-6 mx-auto about-text">
+                    {{ page.about|richtext }}
+                </div>
+            </div>
+        </div>
     </div>
 </section>
-<hr class="m-0" />
 
 <!-- Experience -->
-<section class="portfolio-section" id="experience">
-    <div class="portfolio-section-content">
-        <h2 class="mb-5">Experience</h2>
-        {% for exp in self.experience.all|dictsortreversed:"start" %}
-        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-            <div class="flex-grow-1">
-                <h3 class="mb-0">{{ exp.job_title }}</h3>
-                <div class="subheading mb-3">{{ exp.company }}, {{ exp.location }}</div>
-                <ul>
-                    {% if exp.achievement_1 is not None %}
-                    <li>{{exp.achievement_1}}</li>
-                    {% endif %}
-                    {% if exp.achievement_2 %}
-                    <li>{{exp.achievement_2}}</li>
-                    {% endif %}
-                    {% if exp.achievement_3 %}
-                    <li>{{exp.achievement_3}}</li>
-                    {% endif %}
-                    {% if exp.achievement_4 %}
-                    <li>{{exp.achievement_4}}</li>
-                    {% endif %}
-                </ul>
+<section id="experience" class="page-section bg-primary text-white">
+    <!-- Experience Heading-->
+    <h2 class="page-section-heading text-center text-uppercase">Experience</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+
+    <!-- Experience Content-->
+    <div class="container">
+        <div class="row">
+            {% for exp in self.experience.all %}
+            <div class="col col-sm-2">
+                <i class="{{ skill.icon|lower }}">
+                    <span>{{ exp.job_title | upper }}</span>
+                </i>
             </div>
-            {% if exp.end is None %}
-            <div class="flex-shrink-0"><span class="text-primary">{{ exp.start }} - Present</span></div>
-            {% else %}
-            <div class="flex-shrink-0"><span class="text-primary">{{ exp.start }} - {{ exp.end }}</span></div>
-            {% endif %}
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </section>
-<hr class="m-0" />
+
+<!-- Projects -->
+<section id="portfolio" class="page-section portfolio">
+    <div class="container">
+        <!-- Projects Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary">Projects</h2>
+
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <div class="text-center mb-5 text-secondary">
+            These are some of my pet projects that have a visual component, either a CLI.
+        </div>
+
+        <!-- Projects Content -->
+        <div class="row justify-content-center">
+            {% for project in self.projects.all %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="portfolio-project">
+                    <figure class="effect-bubba">
+                        <a href="{{ project.url }}" target="_blank">
+                            {% image project.image width-400 class="card-img-top project-img" %}
+                            <div>View demo</div>
+                        </a>
+                    </figure>
+                    <div class="card-body mt-1">
+                        <h5 class="card-title text-center">{{ project.title | title }}</h5>
+                        <p class="project-finished-date text-center text-secondary">
+                            <i>{{ project.finished_date|date:'d F Y' }}</i>
+                        </p>
+                        <div class="card-text project-description mb-4">{{ project.description|richtext }}</div>
+
+                        <div class="project-technologies">
+                            {% for iter in project.project_technologies.all %}
+                            <span class="badge" style="background-color:{{ iter.used_technology.color }};">
+                                {{ iter.used_technology.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 <!-- Skills -->
-<section id="skills" class="page-section">
-    <h2 class="page-section-heading text-center text-uppercase">My skills</h2>
+<section id="skills" class="page-section bg-primary text-white">
+    <!-- Skills Heading-->
+    <h2 class="page-section-heading text-center text-uppercase">Skills</h2>
     <!-- Icon Divider-->
     <div class="divider-custom divider-light">
         <div class="divider-custom-line"></div>
@@ -114,86 +189,90 @@
         </div>
     </div>
 </section>
-<hr class="m-0" />
 
-<!-- Projects -->
-<section id="projects" class="page-section projects">
+<!-- Education -->
+<section id="education" class="page-section">
     <div class="container">
-        <!-- Portfolio Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary">Projects</h2>
+        <!-- Education Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary">Education</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-i"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Content-->
+        {% for ed in self.education.all %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-6 mx-auto about-text">
+                    {{ ed.program_name|richtext }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 
+<!-- Publications -->
+<section id="publications" class="page-section bg-primary text-white">
+    <div class="container">
+        <!-- Education Heading-->
+        <h2 class="page-section-heading text-center text-uppercase">Publications</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-i"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Content-->
+        {% for pub in self.publication.all %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-6 mx-auto about-text">
+                    {{ pub.name|richtext }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="page-section ">
+    <div class="container">
+        <!-- Contact Heading-->
+        <h2 class="page-section-heading text-center text-uppercase">Contact Me</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
             <div class="divider-custom-line"></div>
         </div>
-
-        <div class="text-center mb-5 text-secondary">
-            These are some of my pet projects that have a visual component or CLI.
-        </div>
-
-        <!-- Portfolio Projects-->
+        <!-- Contact Form-->
         <div class="row justify-content-center">
-            {% for project in self.projects.all %}
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="portfolio-project">
-                    <figure class="effect-hover">
-                        <a href="{{ project.source_url }}" target="_blank">
-                            {% image project.logo width-400 class="card-img-top project-logo" %}
-                            <div>Learn more</div>
-                        </a>
-                    </figure>
-                    <div class="card-body mt-1">
-                        <h5 class="card-title text-center">{{ project.title | title }} <a href={{project.source_url}}
-                                class="source_url" target="_blank"><i class="fa fa-github"></i></a></h5>
-                        <p class="project-finished-date text-center text-secondary">
-                            <i>{{ project.finished_date|date:'d F Y' }}</i>
-                        </p>
-                        <div class="card-text project-description mb-4">{{ project.description|richtext }}
-                        </div>
-                        <div class="project-technologies">
-                            {% for iter in project.used_technologies.all %}
-                            <span class="badge" style="background-color:{{ iter.used_technology.color }};">
-                                {{ iter.used_technology.name }}
-                            </span>
-                            {% endfor %}
-                        </div>
+            <div class="col-lg-8 col-xl-7">
+                <form id="contactForm" action="{% pageurl page %}" method="POST">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                    {% if field.label %}
+                    <div class="form-group">
+                        <label>{{ field.label_tag }}</label>
+                        {% render_field field class+="form-control" %}
                     </div>
-                </div>
+                    {% else %}
+                    {{ field }}
+                    <br>
+                    {% endif %}
+                    {% endfor %}
+                    <!-- Submit Button-->
+                    <div class="text-center mt-3">
+                        <button id="submitButton" class="btn btn-secondary btn-xl" type="submit">Send</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
         </div>
     </div>
 </section>
-
-
-<!-- Education-->
-<section class="portfolio-section" id="education">
-    <div class="portfolio-section-content">
-        <h2 class="mb-5">Education</h2>
-        {% for ed in self.education.all|dictsortreversed:"start" %}
-        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-            <div class="flex-grow-1">
-                <h3 class="mb-0">{{ ed.program_name }}</h3>
-                <div class="subheading mb-3">{{ ed.educational_institution }}, {{ ed.degree }}</div>
-            </div>
-            {% if ed.end is None %}
-            <div class="flex-shrink-0"><span class="text-primary">{{ ed.start }} - Present</span></div>
-            {% else %}
-            <div class="flex-shrink-0"><span class="text-primary">{{ ed.start }} - {{ ed.end }}</span></div>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
-</section>
-<hr class="m-0" />
-
-<!-- Publications -->
-<section class="portfolio-section" id="education">
-    <div class="portfolio-section-content">
-    </div>
-</section>
-<hr class="m-0" />
 
 {% endblock content %}

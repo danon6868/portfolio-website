@@ -2,9 +2,10 @@ from email.policy import default
 from django.db import models
 from django.utils.timezone import now
 
-from wagtail.models import Page, Orderable
+from wagtail.models import Orderable
 
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, FieldRowPanel
+from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.fields import RichTextField
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -14,7 +15,7 @@ from modelcluster.models import ClusterableModel
 from colorfield.fields import ColorField
 
 
-class HomePage(Page):
+class HomePage(AbstractEmailForm):
     """_summary_
 
     Args:
@@ -22,6 +23,7 @@ class HomePage(Page):
     """
 
     max_count = 1
+    landing_page_template = "home/contact_page.html"
 
     first_name = models.CharField(max_length=64, null=True)
     second_name = models.CharField(max_length=64, null=True)
@@ -34,8 +36,9 @@ class HomePage(Page):
         help_text="Please, upload a square photo (for example 256px x 256px).",
     )
     about = RichTextField(blank=False, null=True)
+    thank_you_text = RichTextField(blank=False, null=True)
 
-    content_panels = Page.content_panels + [
+    content_panels = AbstractEmailForm.content_panels + [
         MultiFieldPanel(
             [
                 FieldPanel("first_name"),
@@ -51,6 +54,20 @@ class HomePage(Page):
         InlinePanel("experience", label="experience", min_num=0),
         InlinePanel("education", label="education", min_num=0),
         InlinePanel("publication", label="publication", min_num=0),
+        MultiFieldPanel(
+            [
+                InlinePanel("form_fields", label="Form Fields", heading="Form Fields"),
+                FieldPanel("thank_you_text"),
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            heading="Contact Email Settings",
+        ),
     ]
 
     class Meta:
@@ -170,3 +187,9 @@ class Publication(Orderable):
 
     def __str__(self):
         return self.name
+
+
+class FormField(AbstractFormField):
+    page = ParentalKey(
+        "home.HomePage", on_delete=models.CASCADE, related_name="form_fields"
+    )
