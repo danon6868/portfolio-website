@@ -13,11 +13,11 @@
 {% block content %}
 
 <!-- Navbar -->
-<nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light text-uppercase fixed-top">
+<nav id="mainNav" class="navbar navbar-expand-lg text-uppercase fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#page-top">{{ self.first_name }}
             <span class="text-primary">{{ self.second_name }}</span></a>
-        <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+        <button class="navbar-toggler text-uppercase font-weight-bold bg-primary rounded" type="button"
             data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
             aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -52,14 +52,14 @@
 </nav>
 
 <!-- Pagehead-->
-<header class="pagehead bg-primary text-white text-center">
+<header class="pagehead bg-primary text-center">
     <div class="container d-flex align-items-center flex-column">
         <!-- Pagehead Avatar Image-->
         {% image page.personal_photo original class="pagehead-avatar" %}
         <!-- Pagehead Heading-->
         <h1 class="pagehead-heading mt-5">{{ self.first_name | title }} {{ self.second_name | title }}</h1>
         <!-- Icon Divider-->
-        <div class="divider-custom divider-light">
+        <div class="divider-custom">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
             <div class="divider-custom-line"></div>
@@ -72,7 +72,7 @@
 <section id="about" class="page-section">
     <div class="container">
         <!-- About Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary">About</h2>
+        <h2 class="page-section-heading text-center text-uppercase">About</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -91,11 +91,11 @@
 </section>
 
 <!-- Experience -->
-<section id="experience" class="page-section bg-primary text-white">
+<section id="experience" class="page-section bg-primary">
     <!-- Experience Heading-->
     <h2 class="page-section-heading text-center text-uppercase">Experience</h2>
     <!-- Icon Divider-->
-    <div class="divider-custom divider-light">
+    <div class="divider-custom">
         <div class="divider-custom-line"></div>
         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
         <div class="divider-custom-line"></div>
@@ -119,7 +119,7 @@
 <section id="portfolio" class="page-section portfolio">
     <div class="container">
         <!-- Projects Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary">Projects</h2>
+        <h2 class="page-section-heading text-center text-uppercase">Projects</h2>
 
         <!-- Icon Divider-->
         <div class="divider-custom">
@@ -138,8 +138,8 @@
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="portfolio-project">
                     <figure class="effect-bubba">
-                        <a href="{{ project.url }}" target="_blank">
-                            {% image project.image width-400 class="card-img-top project-img" %}
+                        <a href="{{ project.demo_url }}" target="_blank">
+                            {% image project.logo width-400 class="card-img-top project-img" %}
                             <div>View demo</div>
                         </a>
                     </figure>
@@ -148,7 +148,10 @@
                         <p class="project-finished-date text-center text-secondary">
                             <i>{{ project.finished_date|date:'d F Y' }}</i>
                         </p>
-                        <div class="card-text project-description mb-4">{{ project.description|richtext }}</div>
+                        <div class="card-text project-description mb-4">
+                            {{ project.description|richtext }} <a href={{ project.source_url }} class="github"
+                                target="_blank"><i class="fas fa-star"></i></a>
+                        </div>
 
                         <div class="project-technologies">
                             {% for iter in project.project_technologies.all %}
@@ -166,11 +169,11 @@
 </section>
 
 <!-- Skills -->
-<section id="skills" class="page-section bg-primary text-white">
+<section id="skills" class="page-section bg-primary">
     <!-- Skills Heading-->
     <h2 class="page-section-heading text-center text-uppercase">Skills</h2>
     <!-- Icon Divider-->
-    <div class="divider-custom divider-light">
+    <div class="divider-custom">
         <div class="divider-custom-line"></div>
         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
         <div class="divider-custom-line"></div>

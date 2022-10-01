@@ -87,7 +87,7 @@
     border-radius: 50%;
     width: 15em;
     height: 15em;
-    border: 5px solid white;
+    border: 5px solid #cccaca;
 }
 
 .about-text {
@@ -97,14 +97,14 @@
 
 i[class^="devicon"] {
     display: block;
-    color: white;
+    color: #333333;
     font-size: 5rem;
     margin: 2vh auto 2vh auto;
     text-align: center;
 }
 
 i[class^="devicon"]:hover {
-    color: #333333;
+    color: #686868;
     font-size: 4rem;
 }
 

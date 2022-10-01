@@ -7,8 +7,10 @@ window.addEventListener('DOMContentLoaded', event => {
         }
         if (window.scrollY === 0) {
             navbarCollapsible.classList.remove('navbar-shrink')
+            console.log("dsad")
         } else {
             navbarCollapsible.classList.add('navbar-shrink')
+            console.log("SSSAS")
         }
 
     };
