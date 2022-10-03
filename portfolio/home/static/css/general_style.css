@@ -128,7 +128,7 @@ h1,
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link.active {
-    color: #bc481a;
+    color: #161311;
 }
 
 #mainNav .navbar-toggler {
@@ -154,7 +154,7 @@ h1,
 
     #mainNav .navbar-nav>li.nav-item>a.nav-link.active {
         color: #fff;
-        background: #581abc;
+        background: #1b1a1d;
     }
 
     #mainNav .navbar-nav>li.nav-item>a.nav-link.active:active,
