@@ -16,7 +16,7 @@
 <nav id="mainNav" class="navbar navbar-expand-lg text-uppercase fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#page-top">{{ self.first_name }}
-            <span class="text-primary">{{ self.second_name }}</span></a>
+            <span>{{ self.second_name }}</span></a>
         <button class="navbar-toggler text-uppercase font-weight-bold bg-primary rounded" type="button"
             data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-laptop-code"></i></div>
             <div class="divider-custom-line"></div>
         </div>
         <p class="pagehead-subheading font-weight-light mb-0">{{ self.professional_title }}</p>
@@ -77,7 +77,7 @@
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fa-solid fa-i"></i></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-user-secret"></i></div>
             <div class="divider-custom-line"></div>
         </div>
         <!-- About Content-->
@@ -98,22 +98,47 @@
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-icon"><i class="fa-solid fa-gears"></i></div>
         <div class="divider-custom-line"></div>
     </div>
 
     <!-- Experience Content-->
+    {% for exp in self.experience.all|dictsortreversed:"end" %}
     <div class="container">
-        <div class="row">
-            {% for exp in self.experience.all %}
-            <div class="col col-sm-2">
-                <i class="{{ skill.icon|lower }}">
-                    <span>{{ exp.job_title | upper }}</span>
-                </i>
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">{{ exp.job_title }}</h3>
+                <div class="subheading mb-3"><a href={{ exp.company_url }} target="_blank" class="company-name">
+                        {{ exp.company }}</a></div>
+                <ul class="fa-ul">
+                    {% if exp.achievement_1 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{exp.achievement_1}}</li>
+                    {% endif %}
+                    {% if exp.achievement_2 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{exp.achievement_2}}</li>
+                    {% endif %}
+                    {% if exp.achievement_3 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{exp.achievement_3}}</li>
+                    {% endif %}
+                    {% if exp.achievement_4 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{exp.achievement_4}}</li>
+                    {% endif %}
+
+                </ul>
             </div>
-            {% endfor %}
+            {% if exp.end is None %}
+            <div class="flex-shrink-0">
+                <span>{{ exp.start }} - Present</span>
+                <div class="subheading mb-3">{{ exp.location }}</div>
+            </div>
+            {% else %}
+            <div class="flex-shrink-0"><span>{{ exp.start }} - {{ exp.end }}</span>
+                <div class="subheading mb-3">{{ ed.location }}</div>
+            </div>
+            {% endif %}
         </div>
     </div>
+    {% endfor %}
 </section>
 
 <!-- Projects -->
@@ -125,7 +150,7 @@
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-keyboard"></i></div>
             <div class="divider-custom-line"></div>
         </div>
 
@@ -145,17 +170,19 @@
                         </a>
                     </figure>
                     <div class="card-body mt-1">
-                        <h5 class="card-title text-center">{{ project.title | title }}</h5>
+                        <h5 class="card-title text-center">{{ project.title }}
+                            <a href={{ project.source_url }} class="github" target="_blank"><i
+                                    class="fa-brands fa-github"></i></a>
+                        </h5>
                         <p class="project-finished-date text-center text-secondary">
                             <i>{{ project.finished_date|date:'d F Y' }}</i>
                         </p>
                         <div class="card-text project-description mb-4">
-                            {{ project.description|richtext }} <a href={{ project.source_url }} class="github"
-                                target="_blank"><i class="fas fa-star"></i></a>
+                            {{ project.description|richtext }}
                         </div>
 
                         <div class="project-technologies">
-                            {% for iter in project.project_technologies.all %}
+                            {% for iter in project.used_technologies.all %}
                             <span class="badge" style="background-color:{{ iter.used_technology.color }};">
                                 {{ iter.used_technology.name }}
                             </span>
@@ -176,7 +203,7 @@
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-icon"><i class="fa-solid fa-qrcode"></i></div>
         <div class="divider-custom-line"></div>
     </div>
 
@@ -184,11 +211,38 @@
     <div class="container">
         <div class="row">
             {% for skill in self.skills.all %}
-            <div class="col col-sm-2">
+            <div class="col col-sm-4">
                 <i class="{{ skill.icon|lower }}">
                     <span>{{ skill.name | upper }}</span>
                 </i>
             </div>
+            {% endfor %}
+
+            {% for st in self.skilltype.all %}
+            <h3 class="mb-0">{{ st.name }}</h3>
+            <div class="flex-grow-1">
+                <ul class="fa-ul">
+                    {% if st.example_1 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{st.example_1|richtext}}</li>
+                    {% endif %}
+                    {% if st.example_2 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{st.example_2|richtext}}</li>
+                    {% endif %}
+                    {% if st.example_3 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{st.example_3|richtext}}</li>
+                    {% endif %}
+                    {% if st.example_4 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{st.example_4|richtext}}</li>
+                    {% endif %}
+                    {% if st.example_5 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{st.example_5|richtext}}</li>
+                    {% endif %}
+                    {% if st.example_6 %}
+                    <li><span class="fa-li"><i class="fa-solid fa-gears"></i></span>{{st.example_6|richtext}}</li>
+                    {% endif %}
+                </ul>
+            </div>
+
             {% endfor %}
         </div>
     </div>
@@ -198,20 +252,33 @@
 <section id="education" class="page-section">
     <div class="container">
         <!-- Education Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary">Education</h2>
+        <h2 class="page-section-heading text-center text-uppercase">Education</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fa-solid fa-i"></i></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-bars"></i></div>
             <div class="divider-custom-line"></div>
         </div>
-        <!-- About Content-->
-        {% for ed in self.education.all %}
+        <!-- Education Content-->
+        {% for ed in self.education.all|dictsortreversed:"end" %}
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-lg-6 mx-auto about-text">
-                    {{ ed.program_name|richtext }}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{ ed.program_name }}, {{ ed.degree }}</h3>
+                    <div class="subheading mb-3"><a href={{ ed.educational_institution_url }} target="_blank"
+                            class="company-name">
+                            {{ ed.educational_institution }}</a></div>
                 </div>
+                {% if ed.end is None %}
+                <div class="flex-shrink-0">
+                    <span>{{ ed.start }} - Present</span>
+                    <div class="subheading mb-3">{{ ed.location }}</div>
+                </div>
+                {% else %}
+                <div class="flex-shrink-0"><span>{{ ed.start }} - {{ ed.end }}</span>
+                    <div class="subheading mb-3">{{ ed.location }}</div>
+                </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
@@ -219,26 +286,46 @@
 </section>
 
 <!-- Publications -->
-<section id="publications" class="page-section bg-primary text-white">
+<section id="publications" class="page-section bg-primary">
     <div class="container">
         <!-- Education Heading-->
         <h2 class="page-section-heading text-center text-uppercase">Publications</h2>
         <!-- Icon Divider-->
-        <div class="divider-custom divider-light">
+        <div class="divider-custom">
             <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fa-solid fa-i"></i></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-folder-open"></i></div>
             <div class="divider-custom-line"></div>
         </div>
         <!-- About Content-->
-        {% for pub in self.publication.all %}
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-lg-6 mx-auto about-text">
-                    {{ pub.name|richtext }}
+        <div class="text-center mb-5 text-secondary">
+            These are scientific publications in which I participated
+        </div>
+
+        <!-- Publications Content -->
+        <div class="row justify-content-center">
+            {% for pub in self.publication.all %}
+            <div class="col-md-2 col-lg-4 mb-4">
+                <div class="portfolio-project">
+                    <figure class="effect-bubba">
+                        <a href="{{ pub.url }}" target="_blank">
+                            {% image pub.logo fill-300x500 class="card-img-top pub-img" %}
+                            <div>Paper</div>
+                        </a>
+                    </figure>
+                    <div class="card-body mt-1">
+                        <h5 class="card-title text-center">{{ pub.name|richtext }}</h5>
+                        <p class="project-finished-date text-center text-secondary">
+                            <i>{{ pub.date|date:'Y' }}</i>
+                        </p>
+                        <div class="card-text pub-description mb-4">
+                            {{ pub.abstract|richtext }}
+                            <!-- <a href={{ pub.url }} class="github" target="_blank"><i class="fas fa-star"></i></a> -->
+                        </div>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </section>
 
@@ -250,7 +337,7 @@
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
-            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-icon"><i class="fa-solid fa-barcode"></i></div>
             <div class="divider-custom-line"></div>
         </div>
         <!-- Contact Form-->

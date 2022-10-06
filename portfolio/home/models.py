@@ -54,6 +54,7 @@ class HomePage(AbstractEmailForm):
         InlinePanel("experience", label="experience", min_num=0),
         InlinePanel("education", label="education", min_num=0),
         InlinePanel("publication", label="publication", min_num=0),
+        InlinePanel("skilltype", label="skill type", min_num=0),
         MultiFieldPanel(
             [
                 InlinePanel("form_fields", label="Form Fields", heading="Form Fields"),
@@ -123,6 +124,20 @@ class ProjectTechnologyPairs(Orderable):
         unique_together = ("project", "used_technology")
 
 
+class ExperienceTechnologyPairs(Orderable):
+    experience = ParentalKey(
+        "home.Experience",
+        on_delete=models.CASCADE,
+        related_name="used_technologies_exp",
+    )
+    used_technology = models.ForeignKey("home.UsedTechnology", on_delete=models.CASCADE)
+
+    panels = [SnippetChooserPanel("used_technology")]
+
+    class Meta(Orderable.Meta):
+        unique_together = ("experience", "used_technology")
+
+
 @register_snippet
 class UsedTechnology(models.Model):
     name = models.CharField(max_length=256)
@@ -132,7 +147,7 @@ class UsedTechnology(models.Model):
         return self.name
 
 
-class Experience(Orderable):
+class Experience(Orderable, ClusterableModel):
     page = ParentalKey("home.HomePage", related_name="experience")
     job_title = models.CharField(max_length=256, default="Job Title", blank=True)
     company = models.CharField(max_length=256, default=None, blank=True)
@@ -144,6 +159,25 @@ class Experience(Orderable):
     achievement_2 = models.CharField(max_length=2000, default=None, blank=True)
     achievement_3 = models.CharField(max_length=2000, default=None, blank=True)
     achievement_4 = models.CharField(max_length=2000, default=None, blank=True)
+
+    panels = [
+        FieldPanel("job_title"),
+        FieldPanel("company"),
+        FieldPanel("company_url"),
+        FieldPanel("location"),
+        FieldPanel("start"),
+        FieldPanel("end"),
+        FieldPanel("achievement_1"),
+        FieldPanel("achievement_2"),
+        FieldPanel("achievement_3"),
+        FieldPanel("achievement_4"),
+        InlinePanel(
+            "used_technologies_exp",
+            label="Used technologies Exp",
+            min_num=0,
+            max_num=12,
+        ),
+    ]
 
     class Meta(Orderable.Meta):
         unique_together = ("job_title", "company")
@@ -175,18 +209,87 @@ class Education(Orderable):
 class Publication(Orderable):
     page = ParentalKey("home.HomePage", related_name="publication")
     name = RichTextField(blank=True, null=True)
+    abstract = RichTextField(blank=True, null=True)
     authors = RichTextField(blank=True, null=True)
     journal = RichTextField(blank=True, null=True)
     url = models.URLField(blank=True, null=True)
     doi = models.CharField(max_length=256)
     impact_factor = models.FloatField(blank=True, null=True)
     date = models.DateField(blank=True, null=True)
+    logo = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
+    )
 
     class Meta(Orderable.Meta):
         unique_together = ("name", "journal")
 
     def __str__(self):
         return self.name
+
+
+class SkillType(Orderable):
+    page = ParentalKey("home.HomePage", related_name="skilltype")
+    name = models.CharField(max_length=512, null=True, blank=True)
+    example_1 = RichTextField(default=None, blank=True)
+    example_2 = RichTextField(default=None, blank=True)
+    example_3 = RichTextField(default=None, blank=True)
+    example_4 = RichTextField(default=None, blank=True)
+    example_5 = RichTextField(default=None, blank=True)
+    example_6 = RichTextField(default=None, blank=True)
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("example_1"),
+        FieldPanel("example_2"),
+        FieldPanel("example_3"),
+        FieldPanel("example_4"),
+        FieldPanel("example_5"),
+        FieldPanel("example_6"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+
+# class SkillType(Orderable, ClusterableModel):
+#     page = ParentalKey("home.HomePage", related_name="skilltype")
+#     name = models.CharField(max_length=512, null=True, blank=True)
+
+#     panels = [
+#         FieldPanel("name"),
+#         InlinePanel(
+#             "skill_type_pairs",
+#             label="Skills",
+#             min_num=0,
+#             max_num=12,
+#         ),
+#     ]
+
+#     def __str__(self):
+#         return self.name
+
+
+# @register_snippet
+# class OneSkill(models.Model):
+#     short_name = models.CharField(max_length=128)
+#     long_name = RichTextField()
+
+#     def __str__(self) -> str:
+#         return self.short_name
+
+
+# class SkillTypePairs(Orderable):
+#     name = ParentalKey(
+#         "home.SkillType",
+#         on_delete=models.CASCADE,
+#         related_name="skill_type_pairs",
+#     )
+#     one_skill = models.ForeignKey("home.OneSkill", on_delete=models.CASCADE)
+
+#     panels = [SnippetChooserPanel("one_skill")]
+
+#     class Meta(Orderable.Meta):
+#         unique_together = ("name", "one_skill")
 
 
 class FormField(AbstractFormField):

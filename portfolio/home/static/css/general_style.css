@@ -87,15 +87,16 @@ h1,
     padding: 1rem 1.75rem;
     font-size: 1.25rem;
     color: #fff;
-    background-color: #9c5d36;
-    border-color: #2c3e50;
+    background-color: #4c0082;
+    border-color: #000000;
 }
 
 .btn-secondary:hover {
     color: #fff;
-    background-color: #253544;
+    background-color: #4c0082de;
     border-color: #233240;
 }
+
 
 #mainNav {
     padding-top: 1rem;
@@ -107,7 +108,7 @@ h1,
 }
 
 #mainNav .navbar-brand {
-    color: rgb(0, 0, 0);
+    color: var(--bs-secondary-rgb);
 }
 
 #mainNav .navbar-nav {
@@ -119,12 +120,12 @@ h1,
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
-    color: var(--bs-primary);
+    color: rgba(var(--bs-secondary-rgb), 0.9);
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:active,
 #mainNav .navbar-nav li.nav-item a.nav-link:focus {
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link.active {
@@ -160,8 +161,8 @@ h1,
     #mainNav .navbar-nav>li.nav-item>a.nav-link.active:active,
     #mainNav .navbar-nav>li.nav-item>a.nav-link.active:focus,
     #mainNav .navbar-nav>li.nav-item>a.nav-link.active:hover {
-        color: #fff;
-        background: #1abc9c;
+        color: var(--bs-secondary-rgb);
+        background: var(--bs-primary-rgb);
     }
 
     #mainNav.navbar-shrink {
@@ -184,10 +185,57 @@ h1,
 .footer {
     padding-top: 5rem;
     padding-bottom: 5rem;
-    background-color: #2c3e50;
+    background-color: #4c0082de;
     color: #fff;
 }
 
 .copyright {
-    background-color: #c66a24;
+    background-color: #4B0082;
+}
+
+
+.d-flex {
+    padding-top: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.d-flex {
+    --fa-li-width: 3.5rem;
+}
+
+.d-flex .flex-grow-1 h3 {
+    font-size: x-large;
+}
+
+a.company-name:link,
+a.company-name:visited,
+a.company-name:active {
+    color: rgb(0, 0, 0);
+    text-decoration: solid;
+}
+
+a.company-name:hover {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.flex-shrink-0 {
+    text-align: right;
+}
+
+.flex-shrink-0 .subheading {
+    font-style: italic;
+}
+
+.card-body h5 {
+    text-align: center;
+    font-size: 1.1rem
+}
+
+.github {
+    color: black;
+}
+
+.github:hover {
+    color: rgba(0, 0, 0, 0.75)
 }
