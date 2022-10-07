@@ -103,7 +103,7 @@
     </div>
 
     <!-- Experience Content-->
-    {% for exp in self.experience.all|dictsortreversed:"end" %}
+    {% for exp in self.experience.all %}
     <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
             <div class="flex-grow-1">
@@ -211,7 +211,7 @@
     <div class="container">
         <div class="row">
             {% for skill in self.skills.all %}
-            <div class="col col-sm-4">
+            <div class="col col-sm-3">
                 <i class="{{ skill.icon|lower }}">
                     <span>{{ skill.name | upper }}</span>
                 </i>

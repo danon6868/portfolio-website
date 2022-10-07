@@ -83,13 +83,6 @@
     }
 }
 
-.pagehead-avatar {
-    border-radius: 50%;
-    width: 15em;
-    height: 15em;
-    border: 5px solid #cccaca;
-}
-
 .about-text {
     font-size: 1.2rem;
     text-align: justify;
@@ -186,4 +179,12 @@ figure.effect-bubba:hover img {
 
 .effect-bubba :hover div {
     opacity: 1;
+}
+
+
+.pagehead .pagehead-avatar {
+    border-radius: 50%;
+    width: 24rem;
+    height: 24rem;
+    border: 2px solid #000000;
 }
