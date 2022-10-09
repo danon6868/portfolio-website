@@ -12,14 +12,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.core.management.utils import get_random_secret_key
+
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
-
+SECRET_KEY = os.environ.get("SECRET_KEY", get_random_secret_key())
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
