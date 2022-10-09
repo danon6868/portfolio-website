@@ -2,3 +2,4 @@ Django>=4.1,<4.2
 wagtail>=4.0,<4.1
 django-colorfield==0.7.1
 django-widget-tweaks==1.4.12
+django-heroku
