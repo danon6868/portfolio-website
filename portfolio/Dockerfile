@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Install the project requirements.
 COPY ./portfolio/requirements.txt /app
-COPY  * /app
+COPY  * /app/
 RUN pip install -r requirements.txt
 
 
