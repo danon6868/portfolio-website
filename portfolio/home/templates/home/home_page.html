@@ -128,12 +128,13 @@
             </div>
             {% if exp.end is None %}
             <div class="flex-shrink-0">
-                <span>{{ exp.start }} - Present</span>
+                <span>{{ exp.start|date:'F Y' }} - Present</span>
                 <div class="subheading mb-3">{{ exp.location }}</div>
             </div>
             {% else %}
-            <div class="flex-shrink-0"><span>{{ exp.start }} - {{ exp.end }}</span>
-                <div class="subheading mb-3">{{ ed.location }}</div>
+            <div class="flex-shrink-0">
+                <span>{{ exp.start|date:'F Y' }} - {{ exp.end|date:'F Y' }}</span>
+                <div class="subheading mb-3">{{ exp.location }}</div>
             </div>
             {% endif %}
         </div>
@@ -175,7 +176,7 @@
                                     class="fa-brands fa-github"></i></a>
                         </h5>
                         <p class="project-finished-date text-center text-secondary">
-                            <i>{{ project.finished_date|date:'d F Y' }}</i>
+                            <i>{{ project.finished_date|date:'F Y' }}</i>
                         </p>
                         <div class="card-text project-description mb-4">
                             {{ project.description|richtext }}
@@ -275,7 +276,7 @@
                     <div class="subheading mb-3">{{ ed.location }}</div>
                 </div>
                 {% else %}
-                <div class="flex-shrink-0"><span>{{ ed.start }} - {{ ed.end }}</span>
+                <div class="flex-shrink-0"><span>{{ ed.start|date:'F Y' }} - {{ ed.end|date:'F Y' }}</span>
                     <div class="subheading mb-3">{{ ed.location }}</div>
                 </div>
                 {% endif %}
