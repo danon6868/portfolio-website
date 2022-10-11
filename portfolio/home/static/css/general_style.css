@@ -254,3 +254,7 @@ a.company-name:hover {
 #skills .col-sm-3 {
     padding-bottom: 3%;
 }
+
+.badge {
+    font-size: 0.75rem;
+}

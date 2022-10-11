@@ -135,6 +135,10 @@ i[class^="devicon"] span {
     padding-bottom: 0.5rem;
 }
 
+.pub-description {
+    text-align: justify;
+}
+
 .project-technologies {
     position: absolute;
     bottom: 0.5rem;
