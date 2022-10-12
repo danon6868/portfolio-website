@@ -251,47 +251,6 @@ class SkillType(Orderable):
         return self.name
 
 
-# class SkillType(Orderable, ClusterableModel):
-#     page = ParentalKey("home.HomePage", related_name="skilltype")
-#     name = models.CharField(max_length=512, null=True, blank=True)
-
-#     panels = [
-#         FieldPanel("name"),
-#         InlinePanel(
-#             "skill_type_pairs",
-#             label="Skills",
-#             min_num=0,
-#             max_num=12,
-#         ),
-#     ]
-
-#     def __str__(self):
-#         return self.name
-
-
-# @register_snippet
-# class OneSkill(models.Model):
-#     short_name = models.CharField(max_length=128)
-#     long_name = RichTextField()
-
-#     def __str__(self) -> str:
-#         return self.short_name
-
-
-# class SkillTypePairs(Orderable):
-#     name = ParentalKey(
-#         "home.SkillType",
-#         on_delete=models.CASCADE,
-#         related_name="skill_type_pairs",
-#     )
-#     one_skill = models.ForeignKey("home.OneSkill", on_delete=models.CASCADE)
-
-#     panels = [SnippetChooserPanel("one_skill")]
-
-#     class Meta(Orderable.Meta):
-#         unique_together = ("name", "one_skill")
-
-
 class FormField(AbstractFormField):
     page = ParentalKey(
         "home.HomePage", on_delete=models.CASCADE, related_name="form_fields"
