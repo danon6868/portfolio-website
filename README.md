@@ -12,7 +12,7 @@ Heroku. I am releasing the full source code for the site so that others may bene
 
 ## Live website
 
-Currently the static version of the site is hosting via GitHub Pages. It is planned to deploy the full version to Heroku.
+Currently the static version of the site is being hosted via GitHub Pages. It is planned to deploy the full version to Heroku.
 To view the website demo, please visit [danon6868.github.io](https://danon6868.github.io/).
 
 > **_NOTE:_**  The web application may take a few seconds to start up.
