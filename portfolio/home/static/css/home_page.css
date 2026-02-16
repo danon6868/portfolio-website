@@ -26,9 +26,9 @@
     width: 100%;
     max-width: 7rem;
     height: 0.25rem;
-    background-color: #000000;
+    background-color: #fff;
     border-radius: 1rem;
-    border-color: #000000;
+    border-color: #fff;
 }
 
 .divider-custom .divider-custom-line:first-child {
@@ -40,7 +40,7 @@
 }
 
 .divider-custom .divider-custom-icon {
-    color: #000000;
+    color: #fff;
     font-size: 2rem;
 }
 

@@ -13,10 +13,10 @@
 {% block content %}
 
 <!-- Navbar -->
-<nav id="mainNav" class="navbar navbar-expand-lg text-uppercase fixed-top">
+<nav id="mainNav" class="navbar navbar-expand-lg  text-uppercase fixed-top" >
     <div class="container">
-        <a class="navbar-brand" href="#page-top">{{ self.first_name }}
-            <span>{{ self.second_name }}</span></a>
+        <a class="navbar-brand" href="#page-top"> {% image page.site_logo original class="img-fluid" height="30px" width="30px"%}
+            <span>{{ self.text_logo }}</span></a>
         <button class="navbar-toggler text-uppercase font-weight-bold bg-primary rounded" type="button"
             data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -27,22 +27,22 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a>
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">À propos</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#experience">Experience</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Projects</a>
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Mes projets</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#skills">Skills</a>
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#skills">Compétences</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#education">Education</a>
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#education">Formations</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#publications">Publications</a>
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#publications">Blogs</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a>
@@ -53,12 +53,12 @@
 </nav>
 
 <!-- Pagehead-->
-<header class="pagehead bg-primary text-center">
+<header class="pagehead bg-dark text-center text-white" >
     <div class="container d-flex align-items-center flex-column">
         <!-- Pagehead Avatar Image-->
         {% image page.personal_photo original class="pagehead-avatar" %}
         <!-- Pagehead Heading-->
-        <h1 class="pagehead-heading mt-5">{{ self.first_name | title }} {{ self.second_name | title }}</h1>
+        <h1 class="pagehead-heading mt-5"> {{ self.second_name | title }} {{ self.first_name | title }} </h1>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -70,10 +70,10 @@
 </header>
 
 <!-- About -->
-<section id="about" class="page-section">
+<section id="about" class="page-section bg-secondary text-white">
     <div class="container">
         <!-- About Heading-->
-        <h2 class="page-section-heading text-center text-uppercase">About</h2>
+        <h2 class="page-section-heading text-center text-uppercase">À propos</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -83,7 +83,7 @@
         <!-- About Content-->
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-lg-6 mx-auto about-text">
+                <div class="col-md-8 col-lg-6 mx-auto about-text text-center">
                     {{ page.about|richtext }}
                 </div>
             </div>
@@ -92,7 +92,7 @@
 </section>
 
 <!-- Experience -->
-<section id="experience" class="page-section bg-primary">
+<section id="experience" class="page-section bg-dark text-white">
     <!-- Experience Heading-->
     <h2 class="page-section-heading text-center text-uppercase">Experience</h2>
     <!-- Icon Divider-->
@@ -143,10 +143,10 @@
 </section>
 
 <!-- Projects -->
-<section id="portfolio" class="page-section portfolio">
+<section id="portfolio" class="page-section portfolio bg-secondary text-white">
     <div class="container">
         <!-- Projects Heading-->
-        <h2 class="page-section-heading text-center text-uppercase">Projects</h2>
+        <h2 class="page-section-heading text-center text-uppercase">Mes projets</h2>
 
         <!-- Icon Divider-->
         <div class="divider-custom">
@@ -198,9 +198,9 @@
 </section>
 
 <!-- Skills -->
-<section id="skills" class="page-section bg-primary">
+<section id="skills" class="page-section bg-dark text-white">
     <!-- Skills Heading-->
-    <h2 class="page-section-heading text-center text-uppercase">Skills</h2>
+    <h2 class="page-section-heading text-center text-uppercase">Compétences</h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -250,10 +250,10 @@
 </section>
 
 <!-- Education -->
-<section id="education" class="page-section">
+<section id="education" class="page-section bg-secondary text-white">
     <div class="container">
         <!-- Education Heading-->
-        <h2 class="page-section-heading text-center text-uppercase">Education</h2>
+        <h2 class="page-section-heading text-center text-uppercase">Formations</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -287,10 +287,10 @@
 </section>
 
 <!-- Publications -->
-<section id="publications" class="page-section bg-primary">
+<section id="publications" class="page-section bg-dark text-white">
     <div class="container">
         <!-- Education Heading-->
-        <h2 class="page-section-heading text-center text-uppercase">Publications</h2>
+        <h2 class="page-section-heading text-center text-uppercase">Blogs</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -298,7 +298,7 @@
             <div class="divider-custom-line"></div>
         </div>
         <!-- About Content-->
-        <div class="text-center mb-5 text-secondary">
+        <div class="text-center mb-5 text-white">
             These are my co-authored publications
         </div>
 
@@ -331,10 +331,10 @@
 </section>
 
 <!-- Contact -->
-<section id="contact" class="page-section ">
+<section id="contact" class="page-section bg-secondary text-white">
     <div class="container">
         <!-- Contact Heading-->
-        <h2 class="page-section-heading text-center text-uppercase">Contact Me</h2>
+        <h2 class="page-section-heading text-center text-uppercase">Me contacter</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
             <div class="divider-custom-line"></div>
@@ -359,7 +359,7 @@
                     {% endfor %}
                     <!-- Submit Button-->
                     <div class="text-center mt-3">
-                        <button id="submitButton" class="btn btn-secondary btn-xl" type="submit">Send</button>
+                        <button id="submitButton" class="btn btn-secondary btn-xl" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>

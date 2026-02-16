@@ -6,13 +6,12 @@ from wagtail.models import Orderable
 
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, FieldRowPanel
 from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.fields import RichTextField
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from colorfield.fields import ColorField
+
 
 
 class HomePage(AbstractEmailForm):
@@ -27,7 +26,15 @@ class HomePage(AbstractEmailForm):
 
     first_name = models.CharField(max_length=64, null=True)
     second_name = models.CharField(max_length=64, null=True)
+    text_logo = models.CharField(max_length=64, null=True)
     professional_title = models.CharField(max_length=140, blank=True, null=True)
+    site_logo = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Please, upload a sitelogo .",
+    )
     personal_photo = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -43,8 +50,10 @@ class HomePage(AbstractEmailForm):
             [
                 FieldPanel("first_name"),
                 FieldPanel("second_name"),
+                FieldPanel("text_logo"),
+                FieldPanel("site_logo"),
                 FieldPanel("professional_title"),
-                ImageChooserPanel("personal_photo"),
+                FieldPanel("personal_photo"),
             ],
             heading="Main_info",
         ),
@@ -102,7 +111,7 @@ class Project(Orderable, ClusterableModel):
     panels = [
         FieldPanel("title"),
         FieldPanel("description"),
-        ImageChooserPanel("logo"),
+        FieldPanel("logo"),
         FieldPanel("demo_url"),
         FieldPanel("source_url"),
         FieldPanel("finished_date"),
@@ -118,7 +127,7 @@ class ProjectTechnologyPairs(Orderable):
     )
     used_technology = models.ForeignKey("home.UsedTechnology", on_delete=models.CASCADE)
 
-    panels = [SnippetChooserPanel("used_technology")]
+    panels = [FieldPanel("used_technology")]
 
     class Meta(Orderable.Meta):
         unique_together = ("project", "used_technology")
@@ -132,7 +141,7 @@ class ExperienceTechnologyPairs(Orderable):
     )
     used_technology = models.ForeignKey("home.UsedTechnology", on_delete=models.CASCADE)
 
-    panels = [SnippetChooserPanel("used_technology")]
+    panels = [FieldPanel("used_technology")]
 
     class Meta(Orderable.Meta):
         unique_together = ("experience", "used_technology")
